@@ -10,20 +10,22 @@ Construir o backend para um sistema de prontuário eletrônico onde o médico po
 
 ## 1. Requisitos funcionais
 
-**Requisitos obrigatórios**
-● Eu, como médico, quero poder cadastrar um paciente com os seguintes dados:
-nome, telefone, email, data de nascimento, sexo, altura e peso.
-● Eu, como médico, quero poder listar e editar o perfil dos pacientes cadastrados.
-● Eu, como médico, quero poder cadastrar um agendamento de consulta para um
-paciente.
-● Eu, como médico, quero poder listar, alterar e excluir os agendamentos de consulta.
-● Eu, como médico, quero poder anotar uma observação durante a consulta.
-● Eu, como médico, quero poder visualizar as anotações das consultas dos pacientes.
+### Requisitos obrigatórios
 
-**Requisitos desejáveis**
-● Eu como médico, quero que o sistema valide a minha agenda, não deixando eu
+- Eu, como médico, quero poder cadastrar um paciente com os seguintes dados:
+nome, telefone, email, data de nascimento, sexo, altura e peso.
+- Eu, como médico, quero poder listar e editar o perfil dos pacientes cadastrados.
+- Eu, como médico, quero poder cadastrar um agendamento de consulta para um
+paciente.
+- Eu, como médico, quero poder listar, alterar e excluir os agendamentos de consulta.
+- Eu, como médico, quero poder anotar uma observação durante a consulta.
+- Eu, como médico, quero poder visualizar as anotações das consultas dos pacientes.
+
+### Requisitos desejáveis
+
+- Eu como médico, quero que o sistema valide a minha agenda, não deixando eu
 cadastrar mais de um paciente na mesma hora.
-● Eu, como médico, quero poder excluir os dados pessoais do paciente por causa das
+- Eu, como médico, quero poder excluir os dados pessoais do paciente por causa das
 novas regras do LGPD, mas mantendo o histórico de consulta por questões de
 contabilidade.
 
