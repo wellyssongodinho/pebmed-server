@@ -58,41 +58,43 @@ visão global de uma possível solução e para servir de guia.
 
 ## 2. Requisitos não funcionais
 
-**Requisitos obrigatórios**
-● Deve usar o padrão de API REST (HTTP/JSON);
-● Pode ser feito em node.js (javascript ou typescript) ou PHP (laravel);
-● Documentação da interface da API gerada (swagger, open-api, RAML ou postman);
-● Os dados devem ser validados (existência e formatos) na inserção/atualização para
+### Requisitos obrigatórios
+
+- Deve usar o padrão de API REST (HTTP/JSON);
+- Pode ser feito em node.js (javascript ou typescript) ou PHP (laravel);
+- Documentação da interface da API gerada (swagger, open-api, RAML ou postman);
+- Os dados devem ser validados (existência e formatos) na inserção/atualização para
 garantir consistência da base;
-● Implementar testes unitários e/ou de integração e/ou documentação de testes (casos
+- Implementar testes unitários e/ou de integração e/ou documentação de testes (casos
 de teste / script de teste);
 
-**Requisitos desejáveis**
-● Documentação da modelagem do banco de dados (diagrama ER ou de classe);
-● Para o banco de dados pode usar MySQL ou PostgreSQL, podendo optar ou não
+### Requisitos desejáveis
+
+- Documentação da modelagem do banco de dados (diagrama ER ou de classe);
+- Para o banco de dados pode usar MySQL ou PostgreSQL, podendo optar ou não
 pelo uso de ORM;
-● Setup de ambiente de desenvolvimento usando docker / docker-compose;
-● Hospedar em um ambiente cloud a sua escolha (Heroku, AWS EBS, IBM Cloud, etc)
-● Garantir autenticação e/ou autorização (login/logout, token JWT, roles)
-● Implementar alguma ferramenta de lint ou qualidade (sonar, code-quality, eslint, etc)
-● Deploy automatizado via pipeline (gitlab-ci, bitbucket pipeline, github actions, etc)
+- Setup de ambiente de desenvolvimento usando docker / docker-compose;
+- Hospedar em um ambiente cloud a sua escolha (Heroku, AWS EBS, IBM Cloud, etc)
+- Garantir autenticação e/ou autorização (login/logout, token JWT, roles)
+- Implementar alguma ferramenta de lint ou qualidade (sonar, code-quality, eslint, etc)
+- Deploy automatizado via pipeline (gitlab-ci, bitbucket pipeline, github actions, etc)
 
 ## 3. O que deverá ser entregue
 
-● As instruções de como rodar o projeto (use o readme.md);
-● Qualquer artefato que seja relevante para a execução do projeto como arquivos, scripts
+- As instruções de como rodar o projeto (use o readme.md);
+- Qualquer artefato que seja relevante para a execução do projeto como arquivos, scripts
 de banco, informações de conexão com o banco e etc (também no readme);
-● O projeto deve ser hospedado no git (bitbucket, github, gitlab, etc) para ser avaliado;
+- O projeto deve ser hospedado no git (bitbucket, github, gitlab, etc) para ser avaliado;
 
 ## 4. Itens que serão avaliados
 
-● Funcional (alcançou os requisitos propostos?);
-● Não funcional (alcançou os requisitos propostos?);
-● Utilização de boas práticas (princípios SOLID, code-smells, etc);
-● Estrutura e organização (componentização, uso de camadas, etc);
-● Legibilidade do código (nomenclatura de classes, métodos e variáveis, lint, etc);
-● Implementação de testes que garantam que o código está atendendo os requisitos;
-● Documentação (histórico de commits no git, readme, diagramas);
+- Funcional (alcançou os requisitos propostos?);
+- Não funcional (alcançou os requisitos propostos?);
+- Utilização de boas práticas (princípios SOLID, code-smells, etc);
+- Estrutura e organização (componentização, uso de camadas, etc);
+- Legibilidade do código (nomenclatura de classes, métodos e variáveis, lint, etc);
+- Implementação de testes que garantam que o código está atendendo os requisitos;
+- Documentação (histórico de commits no git, readme, diagramas);
 
 ## :truck: Entregáveis
 
@@ -144,20 +146,21 @@ de teste / script de teste);
 
 2. Requisitos Desejáveis:
 
-- [ ] Documentação da modelagem do banco de dados (diagrama ER ou de classe);
+- [x] Documentação da modelagem do banco de dados (diagrama ER ou de classe);
 - [x] Para o banco de dados pode usar MySQL ou PostgreSQL, podendo optar ou não
 pelo uso de ORM;
 - [x] Setup de ambiente de desenvolvimento usando docker / docker-compose;
-- [ ] Hospedar em um ambiente cloud a sua escolha (Heroku, AWS EBS, IBM Cloud, etc)
+- [x] Hospedar em um ambiente cloud a sua escolha (Heroku, AWS EBS, IBM Cloud, etc)
 - [ ] Garantir autenticação e/ou autorização (login/logout, token JWT, roles)
-- [ ] Implementar alguma ferramenta de lint ou qualidade (sonar, code-quality, eslint, etc)
-- [ ] Deploy automatizado via pipeline (gitlab-ci, bitbucket pipeline, github actions, etc)
+- [x] Implementar alguma ferramenta de lint ou qualidade (sonar, code-quality, eslint, etc)
+- [x] Deploy automatizado via pipeline (gitlab-ci, bitbucket pipeline, github actions, etc)
 
 >Detalhes
 
 - [x] Criado Database (com PostgreSQL e Docker)
 - [x] Criado ER Diagram (com DBeaver)
-- [ ] Adicionado Deploy Heroku (deploy com github actions [build e test])
+- [x] Adicionado Deploy Heroku (deploy com github actions [build e test])
+- [x] Implementado Eslint como ferramenta de qualidade de código (padrão Nest)
 
 ### :checkered_flag: Preview Project
 
@@ -266,7 +269,7 @@ $ npm run db:down
 
 Diagrama de Entidade e Relacionamento das tabelas que serão geradas no seu banco de dados:
 <p align="center">
-  <img src="git/ER-Diagrama.png" alt="prontomed01" /></a>
+  <img src="git/ER-Diagrama.png" alt="erpebmed" /></a>
 </p>
 
 ### Instalando a aplicação
@@ -322,8 +325,6 @@ $ npm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-[CodeSandbox]: https://img.shields.io/badge/CodeSandbox-20232A?style=for-the-badge&logo=codesandbox&logoColor=#000000
-[CodeSandbox-url]: https://codesandbox.io/
 
 [Gmail]: https://img.shields.io/badge/-wellysson.gomes@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:wellysson.gomes@gmail.com
 [Gmail-url]: mailto:wellysson.gomes@gmail.com
