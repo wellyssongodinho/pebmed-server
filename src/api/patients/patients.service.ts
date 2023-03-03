@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -6,6 +7,7 @@ import {
 import { PrismaService } from '../../config/prisma/prisma.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
+import { PatientEntity } from './entities/patient.entity';
 
 @Injectable()
 export class PatientsService {
@@ -13,6 +15,11 @@ export class PatientsService {
 
   async create(createPatientDto: CreatePatientDto) {
     //'This action adds a new film';
+
+    const { name } = createPatientDto;
+    if (name === undefined || name === '')
+      throw new BadRequestException('Nome deve ser informado');
+
     const patient = await this.findOneEmail(createPatientDto.email);
     if (patient instanceof Error)
       return await this.prisma.patient.create({ data: createPatientDto });
@@ -35,7 +42,7 @@ export class PatientsService {
     else return patient;
   }
 
-  async findOneEmail(email: string) {
+  async findOneEmail(email: string): Promise<PatientEntity | Error | null> {
     //`This action returns a #${email} pacient`;
     const patient = await this.prisma.patient.findUnique({ where: { email } });
     if (!patient || patient === undefined) {
@@ -46,6 +53,10 @@ export class PatientsService {
 
   async update(id: number, updatePatientDto: UpdatePatientDto) {
     //`This action updates a #${id} patient`;
+    const { name } = updatePatientDto;
+    if (name === undefined || name === '')
+      throw new BadRequestException('Nome deve ser informado');
+
     const patient = await this.findOne(id);
     if (patient instanceof Error) return patient;
     else

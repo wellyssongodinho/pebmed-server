@@ -1,7 +1,7 @@
 import { CreatePatientDto } from '../dto/create-patient.dto';
 
-export class CreatePatientMock extends CreatePatientDto {
-  name = 'Mock';
+export class CreatePatientDtoMock extends CreatePatientDto {
+  name = 'Patient Mock 1';
   phone = '5531999999999';
   email = 'mock@mock.com';
   birthday = '1990-01-01';

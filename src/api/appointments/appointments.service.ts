@@ -59,7 +59,6 @@ export class AppointmentsService {
     const patient = await this.prisma.patient.findUnique({
       where: { id: patientId },
     });
-    console.log('passou aqui', JSON.stringify(patient));
     if (!patient || patient === undefined)
       throw new NotFoundException(`Paciente Id ${patientId} não cadastrado`);
     else return patient;

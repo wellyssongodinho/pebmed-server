@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { CreateAppointmentMock } from './../src/api/appointments/mock/create-appointment.dock';
-import { CreateNoteMock } from './../src/api/notes/mock/create-note.dock';
-import { CreatePatientMock } from './../src/api/patients/mock/create-patient.dock';
+import { CreateAppointmentDtoMock } from '../src/api/appointments/mock/create-appointment.dto.dock';
+import { CreateNoteDtoMock } from '../src/api/notes/mock/create-note.dto.dock';
+import { CreatePatientDtoMock } from '../src/api/patients/mock/create-patient.dto.mock';
+import { UpdatePatientDtoMock } from '../src/api/patients/mock/update-patient.dto.mock';
 import { AppModule } from './../src/app.module';
 
 function getRandomInt(max) {
@@ -13,10 +14,10 @@ function getRandomInt(max) {
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let patientId, appointmentId, noteId: number;
-  let appointmentMock: CreateAppointmentMock;
-  let noteMock: CreateNoteMock;
-  const patientMock = new CreatePatientMock();
-  const emailUpdated = 'm' + patientMock.email;
+  let createAppointmentDtoMock: CreateAppointmentDtoMock;
+  let createNoteDtoMock: CreateNoteDtoMock;
+  const createPatientDtoMock = new CreatePatientDtoMock();
+  const updatePatientDtoMock = new UpdatePatientDtoMock();
   const dateAppointment = new Date(Date.now() + getRandomInt(30));
   const dateAppointmentUpdated = new Date(Date.now() + getRandomInt(30));
   const observation = 'Paciente apresentou enjoo';
@@ -58,7 +59,7 @@ describe('AppController (e2e)', () => {
     beforeAll(async () => {
       const res = await request(app.getHttpServer())
         .post('/patients')
-        .send(patientMock)
+        .send(createPatientDtoMock)
         .expect(201);
 
       patientId = res.body.id;
@@ -69,11 +70,14 @@ describe('AppController (e2e)', () => {
         .get(`/patients/${patientId}`)
         .expect(200)
         .expect((res) => {
-          expect(res.body.name).toBe(patientMock.name);
+          expect(res.body.name).toBe(createPatientDtoMock.name);
         });
     });
     afterAll(async () => {
-      appointmentMock = new CreateAppointmentMock(dateAppointment, patientId);
+      createAppointmentDtoMock = new CreateAppointmentDtoMock(
+        dateAppointment,
+        patientId,
+      );
     });
   });
 
@@ -81,7 +85,7 @@ describe('AppController (e2e)', () => {
     beforeAll(async () => {
       await request(app.getHttpServer())
         .patch(`/patients/${patientId}`)
-        .send({ email: emailUpdated })
+        .send(updatePatientDtoMock)
         .expect(200);
     });
 
@@ -90,7 +94,7 @@ describe('AppController (e2e)', () => {
         .get(`/patients/${patientId}`)
         .expect(200)
         .expect((res) => {
-          expect(res.body.email).toBe(emailUpdated);
+          expect(res.body.name).toBe(updatePatientDtoMock.name);
         });
     });
   });
@@ -111,7 +115,7 @@ describe('AppController (e2e)', () => {
     beforeAll(async () => {
       const res = await request(app.getHttpServer())
         .post('/appointments')
-        .send(appointmentMock)
+        .send(createAppointmentDtoMock)
         .expect(201);
 
       appointmentId = res.body.id;
@@ -122,11 +126,13 @@ describe('AppController (e2e)', () => {
         .get(`/appointments/${appointmentId}`)
         .expect(200)
         .expect((res) => {
-          expect(res.body.date).toBe(appointmentMock.date.toISOString());
+          expect(res.body.date).toBe(
+            createAppointmentDtoMock.date.toISOString(),
+          );
         });
     });
     afterAll(async () => {
-      noteMock = new CreateNoteMock(observation, appointmentId);
+      createNoteDtoMock = new CreateNoteDtoMock(observation, appointmentId);
     });
   });
 
@@ -164,7 +170,7 @@ describe('AppController (e2e)', () => {
     beforeAll(async () => {
       const res = await request(app.getHttpServer())
         .post('/notes')
-        .send(noteMock)
+        .send(createNoteDtoMock)
         .expect(201);
 
       noteId = res.body.id;
@@ -251,66 +257,4 @@ describe('AppController (e2e)', () => {
         });
     });
   });
-
-  // describe('NotesModule', () => {
-  //   it('/ (GET NOTE) ', async () => {
-  //     const response = await request(app.getHttpServer()).get('/notes/0');
-  //     expect(response.body.status).toEqual(404);
-  //     expect(response.body.message).toEqual(`Anotação Id 0 não cadastrada`);
-  //   });
-  //   it('/ (POST NOTE) ', async () => {
-  //     note = await request(app.getHttpServer())
-  //       .post('/note')
-  //       .send({
-  //         observation: observationNote,
-  //         appointmentId: appointment.body.id,
-  //       })
-  //       .expect(201);
-  //     return note;
-  //   });
-  //   it('/ (PATCH NOTE) ', async () => {
-  //     const response = await request(app.getHttpServer())
-  //       .get(`/notes/${note.body.id}`)
-  //       .expect(200);
-  //     expect(response.body.appointmentId).toEqual(note.appointmentId);
-  //     await request(app.getHttpServer())
-  //       .patch(`/notes/${note.body.id}`)
-  //       .send({
-  //         observation: observationNoteUpdated,
-  //       })
-  //       .expect(200);
-  //   });
-  // });
-
-  // describe('CleanModules', () => {
-  //   it('/ (DELETE NOTES) ', async () => {
-  //     const response = await request(app.getHttpServer())
-  //       .get(`/notes/${note.body.id}`)
-  //       .expect(200);
-  //     expect(response.body.observation).toEqual(observationNoteUpdated);
-  //     await request(app.getHttpServer())
-  //       .delete(`/notes/${note.body.id}`)
-  //       .expect(200);
-  //   });
-
-  //   it('/ (DELETE APPOINTMENTS) ', async () => {
-  //     const response = await request(app.getHttpServer())
-  //       .get(`/appointments/${appointment.body.id}`)
-  //       .expect(200);
-  //     expect(response.body.date).toEqual(dateAppointmentUpdated);
-  //     await request(app.getHttpServer())
-  //       .delete(`/appointments/${appointment.body.id}`)
-  //       .expect(200);
-  //   });
-
-  //   it('/ (DELETE PATIENTS) ', async () => {
-  //     const response = await request(app.getHttpServer())
-  //       .get(`/patients/${patient.body.id}`)
-  //       .expect(200);
-  //     expect(response.body.email).toEqual(emailUpdated);
-  //     await request(app.getHttpServer())
-  //       .delete(`/patients/${patient.body.id}`)
-  //       .expect(200);
-  //   });
-  // });
 });

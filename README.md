@@ -144,7 +144,7 @@ de teste / script de teste);
 - [x] Criado API's (com NestJS)
 - [x] Criado documentação das API's (com Swagger)
 - [x] Adicionado Testes E2E (com Jest)
-- [ ] Adicionado Testes Unitários (com Jest)
+- [x] Adicionado Testes Unitários (com Jest)
 
 2. Requisitos Desejáveis:
 
