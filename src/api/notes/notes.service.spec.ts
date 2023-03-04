@@ -81,18 +81,22 @@ describe('NotesService', () => {
 
   describe('update', () => {
     it('should update an existing patient', async () => {
+      jest.spyOn(repository.note, 'findUnique').mockResolvedValue(note);
       jest.spyOn(repository.note, 'update').mockResolvedValue(noteUpdated);
       expect(await service.update(note.id, updateNoteDtoMock)).toBe(
         noteUpdated,
       );
+      expect(repository.note.findUnique).toHaveBeenCalledTimes(1);
       expect(repository.note.update).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('remove', () => {
     it('should delete an note by id', async () => {
+      jest.spyOn(repository.note, 'findUnique').mockResolvedValue(note);
       jest.spyOn(repository.note, 'delete').mockResolvedValue(note);
       expect(await service.remove(note.id)).toBe(note);
+      expect(repository.note.findUnique).toHaveBeenCalledTimes(1);
       expect(repository.note.delete).toHaveBeenCalledTimes(1);
     });
 

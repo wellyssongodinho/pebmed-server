@@ -83,24 +83,33 @@ describe('NotesController', () => {
 
   describe('update', () => {
     it('should update an existing note', async () => {
+      jest.spyOn(service.note, 'findUnique').mockResolvedValue(note);
       jest.spyOn(service.note, 'update').mockResolvedValue(noteUpdated);
+
       expect(
         await controller.update(note.id.toString(), updateNoteDtoMock),
       ).toBe(noteUpdated);
+
+      expect(service.note.findUnique).toHaveBeenCalledTimes(1);
       expect(service.note.update).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('remove', () => {
     it('should delete an note by id', async () => {
+      jest.spyOn(service.note, 'findUnique').mockResolvedValue(note);
       jest.spyOn(service.note, 'delete').mockResolvedValue(note);
+
       expect(await controller.remove(note.id.toString())).toBe(note);
+
+      expect(service.note.findUnique).toHaveBeenCalledTimes(1);
       expect(service.note.delete).toHaveBeenCalledTimes(1);
     });
     it('should delete an note by id', async () => {
       jest
         .spyOn(service.note, 'delete')
         .mockRejectedValue(new NotFoundException());
+
       await expect(controller.remove('2')).rejects.toThrow(NotFoundException);
     });
   });

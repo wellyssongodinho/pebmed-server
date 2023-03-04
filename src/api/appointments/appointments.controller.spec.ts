@@ -97,24 +97,32 @@ describe('AppointmentsController', () => {
   describe('update', () => {
     it('should update an existing appointment', async () => {
       jest
+        .spyOn(service.appointment, 'findUnique')
+        .mockResolvedValue(appointment);
+      jest
         .spyOn(service.appointment, 'update')
         .mockResolvedValue(appointmentUpdated);
       expect(
         await controller.update(
-          appointment.id.toString(),
+          appointmentUpdated.id.toString(),
           updateAppointmentDtoMock,
         ),
       ).toBe(appointmentUpdated);
+      expect(service.appointment.findUnique).toHaveBeenCalledTimes(1);
       expect(service.appointment.update).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('remove', () => {
     it('should delete an appointment by id', async () => {
+      jest
+        .spyOn(service.appointment, 'findUnique')
+        .mockResolvedValue(appointment);
       jest.spyOn(service.appointment, 'delete').mockResolvedValue(appointment);
       expect(await controller.remove(appointment.id.toString())).toBe(
         appointment,
       );
+      expect(service.appointment.findUnique).toHaveBeenCalledTimes(1);
       expect(service.appointment.delete).toHaveBeenCalledTimes(1);
     });
     it('should delete an appointment by id', async () => {

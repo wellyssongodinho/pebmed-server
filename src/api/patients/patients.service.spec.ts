@@ -84,6 +84,7 @@ describe('PatientsService', () => {
 
   describe('update', () => {
     it('should update an existing patient', async () => {
+      jest.spyOn(repository.patient, 'findUnique').mockResolvedValue(patient);
       jest
         .spyOn(repository.patient, 'update')
         .mockResolvedValue(patientUpdated);
@@ -96,6 +97,7 @@ describe('PatientsService', () => {
 
   describe('remove', () => {
     it('should delete an patient by id', async () => {
+      jest.spyOn(repository.patient, 'findUnique').mockResolvedValue(patient);
       jest.spyOn(repository.patient, 'delete').mockResolvedValue(patient);
       expect(await service.remove(patient.id)).toBe(patient);
       expect(repository.patient.delete).toHaveBeenCalledTimes(1);

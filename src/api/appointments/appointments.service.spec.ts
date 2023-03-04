@@ -93,11 +93,15 @@ describe('AppointmentsService', () => {
   describe('update', () => {
     it('should update an existing appointment', async () => {
       jest
+        .spyOn(repository.appointment, 'findUnique')
+        .mockResolvedValue(appointment);
+      jest
         .spyOn(repository.appointment, 'update')
         .mockResolvedValue(appointmentUpdated);
       expect(
-        await service.update(appointment.id, updateAppointmentDtoMock),
+        await service.update(appointmentUpdated.id, updateAppointmentDtoMock),
       ).toBe(appointmentUpdated);
+      expect(repository.appointment.findUnique).toHaveBeenCalledTimes(1);
       expect(repository.appointment.update).toHaveBeenCalledTimes(1);
     });
   });
@@ -105,9 +109,13 @@ describe('AppointmentsService', () => {
   describe('remove', () => {
     it('should delete an appointment by id', async () => {
       jest
+        .spyOn(repository.appointment, 'findUnique')
+        .mockResolvedValue(appointment);
+      jest
         .spyOn(repository.appointment, 'delete')
         .mockResolvedValue(appointment);
       expect(await service.remove(appointment.id)).toBe(appointment);
+      expect(repository.appointment.findUnique).toHaveBeenCalledTimes(1);
       expect(repository.appointment.delete).toHaveBeenCalledTimes(1);
     });
     it('should delete a NotFoundException with status 404 if the appointment 2 is not found', async () => {
